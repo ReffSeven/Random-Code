@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sentence Reverser</title>
+	<style type="text/css">
+		#word span {
+			border:1px solid #f00;
+			background:#faa;
+			color:#f00;
+			padding:0 5px;
+			margin:0 5px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Sentence Reverser</h1>
+	<div>Phrase :
+		<input id="phrase" type="text" size="40">
+	</div>
+	<div>Filter :
+		<input id="filter" type="text" size="10">
+	</div>
+	<div>
+		<button onclick="reverseText()">Go!</button>
+	</div>
+	<div id="word"></div>
+	<div id="filtered"></div>
+
+	<script type="text/javascript">
+		function getElement(id) {
+			return document.getElementById(id)
+		}
+		function reverseText() {
+			let phrase = getElement("phrase").value
+			// dikonversi ke lower(huruf kecil)
+			// agar mudah saat dilakukan pengecekan
+			let filter = getElement("filter").value.toLowerCase()
+
+			let arrPhrase = phrase.split(" ").reverse()
+			let strWord = ""
+			let filteredWord = 0
+			// perulangan forEach
+			// parameter "item" memiliki nilai setiap
+			// kata didalam variable "arrPhrase"
+			arrPhrase.forEach(function(item, index){
+				// setiap item(kata) dilakukan pengecekan
+				// berdasarkan "filter"
+
+				// .includes(filter) berarti mencari tau
+				// apakah didalam item(kata) mengandung
+				// "filter" atau tidak
+
+				// filter != "" berarti filter hanya akan
+				// dilakukan, jika nilai filter tidak kosong
+				if(item.toLowerCase().includes(filter) && filter != "") {
+					filteredWord += 1
+				}
+				else {
+					strWord += `<span>${item}</span>`
+				}
+			})
+			getElement("word").innerHTML = strWord
+			// jika ada kata yang difilter
+			// tampilkan jumlahnya
+			if(filteredWord > 0) {
+				getElement("filtered").innerHTML = `${filteredWord} word(s) filtered out`
+			}
+		}
+	</script>
+</body>
+</html>
